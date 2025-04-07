@@ -1,0 +1,23 @@
+{
+  "name": "core-validator",
+  "version": "1.5.1",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node index.test.js"
+  },
+  "author": "bjq135",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bjq135/core-validator"
+  },
+  "keywords": [
+    "validator",
+    "validation",
+    "validate"
+  ]
+}
