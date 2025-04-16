@@ -418,12 +418,80 @@ test('mobile', async (t) => {
 
     input = { value:'+0123456789' }; // 国家代码不能以 0 开头
     errors = validator.validate(input, rules);
-    assert.deepEqual(errors[0], { message: 'value must be an mobile', field: 'value' });
+    assert.deepEqual(errors[0], { message: 'value must be a mobile', field: 'value' });
 
     input = { value:'123456' }; // 长度不足
     errors = validator.validate(input, rules);
     console.log('errors', errors)
-    assert.deepEqual(errors[0], { message: 'value must be an mobile', field: 'value' });
+    assert.deepEqual(errors[0], { message: 'value must be a mobile', field: 'value' });
+  });
+});
+
+
+test('date', async (t) => {
+  await t.test('required true with undefined', () => {
+    let input = {};
+    let rules = { value: { type: 'date' } };
+    let errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value is required', field: 'value' });
+  });
+
+  await t.test('works with date', () => {
+    let input = { value:'2025-04-16' };
+    let rules = { value: { type: 'date' } };
+    let errors = validator.validate(input, rules);
+    assert.deepEqual(errors, undefined);
+
+    input = { value:'666677' };
+    rules = { value: { type: 'date' } };
+    errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value must be a date', field: 'value' });
+  });
+});
+
+
+test('datetime', async (t) => {
+  await t.test('required true with undefined', () => {
+    let input = {};
+    let rules = { value: { type: 'datetime' } };
+    let errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value is required', field: 'value' });
+  });
+
+  await t.test('works with datetime', () => {
+    let input = { value:'2025-04-16 23:12:12' };
+    let rules = { value: { type: 'datetime' } };
+    let errors = validator.validate(input, rules);
+    assert.deepEqual(errors, undefined);
+
+    input = { value:'666677' };
+    errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value must be a datetime', field: 'value' });
+
+    input = { value:'2025-13-05 14:30:45' };
+    errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value must be a datetime', field: 'value' });
+  });
+});
+
+
+test('password', async (t) => {
+  await t.test('required true with undefined', () => {
+    let input = {};
+    let rules = { value: { type: 'password' } };
+    let errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value is required', field: 'value' });
+  });
+
+  await t.test('works with password', () => {
+    let input = { value:'Passw0rd!' };
+    let rules = { value: { type: 'password' } };
+    let errors = validator.validate(input, rules);
+    assert.deepEqual(errors, undefined);
+
+    input = { value:'6666566756756777' };
+    errors = validator.validate(input, rules);
+    assert.deepEqual(errors[0], { message: 'value must be a password', field: 'value' });
   });
 });
 

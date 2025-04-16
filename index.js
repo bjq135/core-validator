@@ -13,6 +13,9 @@ class Validator {
       boolean: 'checkBoolean',
       email: 'checkEmail',
       mobile: 'checkMobile',
+      date: 'checkDate',
+      datetime: 'checkDateTime',
+      password: 'checkPassword'
     }
   }
 
@@ -238,17 +241,41 @@ class Validator {
 
 
   checkPassword(rule, value){
+    if (typeof value === 'undefined') {
+      if (rule.required === false) return;
+      return this.message('password.required');
+    }
 
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!regex.test(value)) {
+      return this.message('password.type');
+    }
   }
 
 
   checkDate(rule, value){
+    if (typeof value === 'undefined') {
+      if (rule.required === false) return;
+      return this.message('date.required');
+    }
 
+    const regex = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    if (!regex.test(value)) {
+      return this.message('date.type');
+    }
   }
 
 
-  checkDatetime(rule, value){
+  checkDateTime(rule, value){
+    if (typeof value === 'undefined') {
+      if (rule.required === false) return;
+      return this.message('datetime.required');
+    }
 
+    const regex = /^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]) (0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+    if (!regex.test(value)) {
+      return this.message('datetime.type');
+    }
   }
 
   
@@ -285,7 +312,13 @@ translate['en_US'] = {
   'email.required': ':field is required',
   'email.type': ':field must be an email',
   'mobile.required': ':field is required',
-  'mobile.type': ':field must be a mobile'
+  'mobile.type': ':field must be a mobile',
+  'date.required': ':field is required',
+  'date.type': ':field must be a date',
+  'datetime.required': ':field is required',
+  'datetime.type': ':field must be a datetime',
+  'password.required': ':field is required',
+  'password.type': ':field must be a password',
 }
 translate['zh_CN']= {
   'input.object':'验证数据必须是一个对象',
@@ -310,5 +343,11 @@ translate['zh_CN']= {
   'email.type': ':field必须是邮箱',
   'mobile.required': ':field是必须的',
   'mobile.type': ':field必须是手机号码',
+  'date.required': ':field是必须的',
+  'date.type': ':field必须是日期',
+  'datetime.required': ':field是必须的',
+  'datetime.type': ':field必须是日期时间',
+  'password.required': ':field是必须的',
+  'password.type': 'field必须是密码',
 }
 

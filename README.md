@@ -118,6 +118,36 @@ validator.validate(input, rules);
 ```
 
 
+### Validate a date
+
+```javascript
+let input = { value: '2025-04-16' };
+let rules = { value: { type: 'date' } };
+validator.validate(input, rules);
+// => undefined
+```
+
+
+### Validate a datetime
+
+```javascript
+let input = { value: '2025-04-16 10:30:30' };
+let rules = { value: { type: 'datetime' } };
+validator.validate(input, rules);
+// => undefined
+```
+
+
+### Validate a password
+
+```javascript
+let input = { value: 'Passw0rd!' };
+let rules = { value: { type: 'password' } };
+validator.validate(input, rules);
+// => undefined
+```
+
+
 ### Custom message
 
 ```javascript 
